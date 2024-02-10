@@ -12,6 +12,8 @@ import { NameIcon } from "../atoms/CircleSkelton"
 import { allData, data } from "@/utils/sampleData"
 import { Separator } from "../ui/separator"
 import { PointConfirm } from "./PointConfirm"
+import { useLiffContext } from "@/context/useLiffContext"
+import { useState } from "react"
 
 export const PointPage = () => {
   return (
@@ -33,11 +35,25 @@ export const PointPage = () => {
 }
 
 export const UserPage = () => {
+  const { liffObject } = useLiffContext();
+  const redirectUri = import.meta.env.REDIRECT_URL || 'null'
+  if (liffObject && !liffObject.isLoggedIn()) {
+    liffObject.login({ redirectUri: redirectUri });
+  }
+  const [name, setName] = useState<string>('null');
+  liffObject?.getProfile()
+    .then((profile) => {
+      setName(profile.displayName);
+    })
+    .catch((error) => {
+      console.log("error:",error)
+    })
+
   return (
     <Card className="w-full">
       <CardHeader>
         <CardTitle>
-          <NameIcon />
+          <NameIcon name={name} />
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -58,7 +74,7 @@ export const AdminPage = () => {
           <div>
             <CardHeader>
               <CardTitle>
-                <NameIcon />
+                <NameIcon name='defaultName' />
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
