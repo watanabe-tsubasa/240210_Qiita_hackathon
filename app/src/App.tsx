@@ -1,28 +1,9 @@
-import liff from '@line/liff';
-import { useEffect, useState } from 'react'
 import { Basetab } from './components/organism/Basetab';
+import { useLiffContext } from './context/useLiffContext';
 
 
 function App() {
-  const [message, setMessage] = useState("");
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    liff
-      .init({
-        liffId: import.meta.env.VITE_LIFF_ID
-      })
-      .then(() => {
-        setMessage("LIFF init succeeded.");
-        console.log(message);
-      })
-      .catch((e: Error) => {
-        setMessage("LIFF init failed.");
-        setError(`${e}`);
-        console.log(error);
-      });
-  });
-
+  const { message, error } = useLiffContext();
   return (
     <div className="App">
       <h1>create-liff-app</h1>
