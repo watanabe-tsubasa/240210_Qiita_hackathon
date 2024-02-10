@@ -36,24 +36,24 @@ export const PointPage = () => {
 
 export const UserPage = () => {
   const { liffObject } = useLiffContext();
-  const redirectUri = import.meta.env.REDIRECT_URL || 'null'
   if (liffObject && !liffObject.isLoggedIn()) {
-    liffObject.login({ redirectUri: redirectUri });
+    liffObject.login({ redirectUri: import.meta.env.REDIRECT_URL as string });
   }
-  const [name, setName] = useState<string>('null');
+  const [name, setName] = useState<string | null>(null);
+  const [pictureUrl, setPictureUrl] = useState<string | undefined>(undefined);
   liffObject?.getProfile()
     .then((profile) => {
       setName(profile.displayName);
+      setPictureUrl(`${profile.pictureUrl}/small`);
     })
     .catch((error) => {
       console.log("error:",error)
     })
-
   return (
     <Card className="w-full">
       <CardHeader>
         <CardTitle>
-          <NameIcon name={name} />
+          <NameIcon name={name} picture={pictureUrl} />
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -74,7 +74,7 @@ export const AdminPage = () => {
           <div>
             <CardHeader>
               <CardTitle>
-                <NameIcon name='defaultName' />
+                <NameIcon name='defaultName' picture={undefined} />
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">

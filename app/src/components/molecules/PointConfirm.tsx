@@ -2,7 +2,7 @@ import  { useEffect, useState } from 'react';
 
 export function PointConfirm() {
   return (
-      <div className="relative mt-4 flex items-center justify-center">
+      <div className="relative mt-4 mx-8 flex items-center justify-center">
           <CircularProgress value={37} max={50} />
       </div>
   )
@@ -14,7 +14,7 @@ interface CircularProgressType {
 }
 
 const CircularProgress: React.FC<CircularProgressType> = ({ value, max }) => {
-  const size = 330;
+  const size = 270;
   const strokeWidth = 25;
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
