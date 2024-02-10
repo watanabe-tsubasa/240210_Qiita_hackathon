@@ -14,10 +14,12 @@ function App() {
       })
       .then(() => {
         setMessage("LIFF init succeeded.");
+        console.log(message);
       })
       .catch((e: Error) => {
         setMessage("LIFF init failed.");
         setError(`${e}`);
+        console.log(error);
       });
   });
 
