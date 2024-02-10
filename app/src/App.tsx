@@ -1,12 +1,17 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Basetab } from './components/organism/Basetab';
+import { Login } from './components/organism/Login';
 
 function App() {
   return (
-    <div className="App">
-      <div className='w-full h-[93vH] flex justify-center my-4'>
-        <Basetab />
+    <BrowserRouter>
+      <div>
+        <Routes>
+          <Route path="/" element={<Basetab />} />
+          <Route path="/login" element={<Login />} />
+        </Routes> 
       </div>
-    </div>
+    </BrowserRouter>
   );
 }
 

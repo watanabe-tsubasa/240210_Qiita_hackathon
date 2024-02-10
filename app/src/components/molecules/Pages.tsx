@@ -69,9 +69,9 @@ export const UserPage = () => {
 export const AdminPage = () => {
   return (
     <Card className="flex-grow overflow-scroll h-[90vH]">
-      {allData.map(data => {
+      {allData.map((data, idx) => {
         return (
-          <div>
+          <div key={idx}>
             <CardHeader>
               <CardTitle>
                 <NameIcon name='defaultName' picture={undefined} />
