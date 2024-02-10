@@ -1,6 +1,6 @@
 # example netlify.toml
 [build]
-  command = "curl -fsSL https://bun.sh/install | bash && cd my-app && bun run build"
+  command = "curl -fsSL https://bun.sh/install | bash && exec $SHELL -l && cd my-app && bun run build"
   functions = "netlify/functions"
   publish = "./my-app/dist"
 
