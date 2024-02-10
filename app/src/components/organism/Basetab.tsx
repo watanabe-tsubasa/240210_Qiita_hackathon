@@ -7,7 +7,7 @@ import {
 import { AdminPage, PointPage, UserPage } from "../molecules/Pages"
 import { useState } from "react"
 
-export function Basetab() {
+export default function Basetab() {
 
   const [isAdmin] = useState(true);
   const tabsListClassName = `grid w-full ${isAdmin ? 'grid-cols-3' : 'grid-cols-2'}`;

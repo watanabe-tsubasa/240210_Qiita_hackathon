@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/select"
 import { useState } from "react"
 
-export const Login = () => {
+export default function Login() {
 
   const [name, setName] = useState('');
   const [selected, setSelected] = useState('');
