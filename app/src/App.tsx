@@ -1,5 +1,6 @@
 import liff from '@line/liff';
 import { useEffect, useState } from 'react'
+import { Basetab } from './components/organism/Basetab';
 
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>create-liff-app</h1>
+      {/* <h1>create-liff-app</h1>
       {message && <p>{message}</p>}
       {error && (
         <p>
@@ -35,7 +36,10 @@ function App() {
         rel="noreferrer"
       >
         LIFF Documentation
-      </a>
+      </a> */}
+      <div className='w-full h-[93vH] flex justify-center my-4'>
+        <Basetab />
+      </div>
     </div>
   );
 }
