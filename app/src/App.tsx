@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import liff from "@line/liff";
-import "./App.css";
+import liff from '@line/liff';
+import { useEffect, useState } from 'react'
+
 
 function App() {
   const [message, setMessage] = useState("");
@@ -40,4 +40,4 @@ function App() {
   );
 }
 
-export default App;
+export default App

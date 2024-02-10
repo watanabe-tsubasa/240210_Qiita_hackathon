@@ -1,8 +1,8 @@
 # example netlify.toml
 [build]
-  command = "cd my-app && npm install typescript vite && tsc && vite build"
+  command = "cd app && npm install typescript vite && tsc && vite build"
   functions = "netlify/functions"
-  publish = "./my-app/dist"
+  publish = "./app/dist"
 
   ## Uncomment to use this redirect for Single Page Applications like create-react-app.
   ## Not needed for static site generators.
