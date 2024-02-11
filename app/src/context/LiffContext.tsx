@@ -5,6 +5,7 @@ interface LiffContextValue {
   liffObject: Liff | null;
   message: string;
   error: string;
+  userId: string;
 }
 export const LiffContext = createContext<LiffContextValue | null>(null);
 
@@ -15,6 +16,7 @@ interface LiffProviderProps {
 export const LiffProvider: React.FC<LiffProviderProps> = ({ children }) => {
   const [liffObject, setLiffObject] = useState<Liff | null>(null);
   const [message, setMessage] = useState("");
+  const [userId, setUserId] = useState("");
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -25,6 +27,15 @@ export const LiffProvider: React.FC<LiffProviderProps> = ({ children }) => {
       .then(() => {
         setMessage("LIFF init succeeded.");
         setLiffObject(liff);
+        liff.getProfile()
+          .then((profile) => {
+            setUserId(profile.userId);
+            console.log(profile.userId)
+          })
+          .catch((e: Error) => {
+            setMessage("LIFF init failed.");
+            setError(`${e}`);
+          });
       })
       .catch((e: Error) => {
         setMessage("LIFF init failed.");
@@ -33,7 +44,7 @@ export const LiffProvider: React.FC<LiffProviderProps> = ({ children }) => {
   });
 
   return (
-    <LiffContext.Provider value={{ liffObject, message, error}} >
+    <LiffContext.Provider value={{ liffObject, message, error, userId }} >
       {children}
     </LiffContext.Provider>
   )

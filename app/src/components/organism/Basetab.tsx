@@ -5,11 +5,22 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs"
 import { AdminPage, PointPage, UserPage } from "../molecules/Pages"
-import { useState } from "react"
+import { Suspense, useEffect, useState } from "react"
+import { useLiffContext } from "@/context/useLiffContext";
+import { SimpleSkelton } from "../atoms/SimpleSkelton";
 
 export default function Basetab() {
 
-  const [isAdmin] = useState(true);
+  const { userId } = useLiffContext();
+  const [isAdmin, setIsAdmin] = useState(false);
+  const adminId = 'U439dc3807475b0b2091a3a712ab6fb90';
+  useEffect(() => {
+    console.log(isAdmin);
+    console.log(adminId);
+    console.log(`context: ${userId}`);
+    if (userId === adminId) {setIsAdmin(true);}
+  }, [isAdmin, userId, adminId])
+
   const tabsListClassName = `grid w-full ${isAdmin ? 'grid-cols-3' : 'grid-cols-2'}`;
   return (
     <div className='w-full h-[93vH] flex justify-center my-4'>
@@ -21,10 +32,14 @@ export default function Basetab() {
             {isAdmin && <TabsTrigger value="admin">admin</TabsTrigger>}
           </TabsList>
           <TabsContent value="point">
-            <PointPage />
+            <Suspense fallback={<SimpleSkelton />}>
+              <PointPage />
+            </Suspense>
           </TabsContent>
           <TabsContent value="user">
-            <UserPage />
+            <Suspense fallback={<SimpleSkelton />}>
+              <UserPage />  
+            </Suspense>
           </TabsContent>
           <TabsContent value="admin">
             <AdminPage />

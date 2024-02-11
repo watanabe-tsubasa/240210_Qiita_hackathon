@@ -9,17 +9,18 @@ import {
 } from "@/components/ui/card"
 import { CommonRaderChart } from "./Chart"
 import { NameIcon } from "../atoms/CircleSkelton"
-import { allData, data } from "@/utils/sampleData"
 import { Separator } from "../ui/separator"
 import { PointConfirm } from "./PointConfirm"
 import { useLiffContext } from "@/context/useLiffContext"
 import { useState } from "react"
+import { useAllData, useUserPoint } from "@/Hooks/useFetcher"
+import { SimpleSkelton } from "../atoms/SimpleSkelton"
 
 export const PointPage = () => {
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>エモポイント</CardTitle>
+        <CardTitle>つながりポイント</CardTitle>
         <CardDescription>
           コミュニティみんなの成果
         </CardDescription>
@@ -35,7 +36,7 @@ export const PointPage = () => {
 }
 
 export const UserPage = () => {
-  const { liffObject } = useLiffContext();
+  const { liffObject, userId } = useLiffContext();
   if (liffObject && !liffObject.isLoggedIn()) {
     liffObject.login({ redirectUri: import.meta.env.REDIRECT_URL as string });
   }
@@ -49,6 +50,7 @@ export const UserPage = () => {
     .catch((error) => {
       console.log("error:",error)
     })
+  const { point } = useUserPoint(userId);
   return (
     <Card className="w-full">
       <CardHeader>
@@ -57,7 +59,7 @@ export const UserPage = () => {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <CommonRaderChart data={data} />
+        <CommonRaderChart data={point} />
       </CardContent>
       <CardFooter className="flex items-center justify-center">
         <Button>再読み込み</Button>
@@ -67,14 +69,17 @@ export const UserPage = () => {
 }
 
 export const AdminPage = () => {
-  return (
+  const { allData, allNameList, isLoading } = useAllData();
+  return isLoading ? <SimpleSkelton /> :
+  (
     <Card className="flex-grow overflow-scroll h-[90vH]">
       {allData.map((data, idx) => {
+        const name = allNameList[idx];
         return (
           <div key={idx}>
             <CardHeader>
               <CardTitle>
-                <NameIcon name='defaultName' picture={undefined} />
+                <NameIcon name={name} picture={undefined} />
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">

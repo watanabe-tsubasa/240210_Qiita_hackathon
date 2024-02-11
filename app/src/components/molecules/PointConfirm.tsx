@@ -1,9 +1,11 @@
+import { useFetchPoint } from '@/Hooks/useFetcher';
 import  { useEffect, useState } from 'react';
 
 export function PointConfirm() {
+  const { point } = useFetchPoint()
   return (
       <div className="relative mt-4 mx-8 flex items-center justify-center">
-          <CircularProgress value={37} max={50} />
+          <CircularProgress value={point?.emopoint ?? 0} max={50} />
       </div>
   )
 }
@@ -36,7 +38,7 @@ const CircularProgress: React.FC<CircularProgressType> = ({ value, max }) => {
         strokeWidth={strokeWidth}
       />
       <circle
-        stroke="blue"
+        stroke="#55c500"
         fill="none"
         cx={size / 2}
         cy={size / 2}
@@ -48,8 +50,8 @@ const CircularProgress: React.FC<CircularProgressType> = ({ value, max }) => {
         style={{ transition: 'stroke-dashoffset 1s ease-out' }}
         transform={`rotate(-90 ${size / 2} ${size / 2})`}
       />
-      <text className="text-9xl" x="45%" y="50%" dy="0.3em" textAnchor="middle" style={{fill: 'rgba(0,0,0,0.7)'}}>{`${value}`}</text>
-      <text className="text-5xl" x="75%" y="55%" dy="0.3em" textAnchor="middle" style={{fill: 'rgba(0,0,0,0.7)'}}>pts</text>
+      <text className="text-8xl font-bold" x="40%" y="50%" dy="0.3em" textAnchor="middle" style={{fill: 'rgba(0,0,0,0.7)'}}>{`${value}`}</text>
+      <text className="text-4xl" x="75%" y="55%" dy="0.3em" textAnchor="middle" style={{fill: 'rgba(0,0,0,0.7)'}}>pts</text>
     </svg>
   );
 };
