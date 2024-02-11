@@ -9,17 +9,21 @@ import { Suspense, useEffect, useState } from "react"
 import { useLiffContext } from "@/context/useLiffContext";
 import { SimpleSkelton } from "../atoms/SimpleSkelton";
 
+const adminId = [
+  'U439dc3807475b0b2091a3a712ab6fb90',
+  'U50307cc62d8ee6872c06aa554d47df4f'
+];
+
 export default function Basetab() {
 
   const { userId } = useLiffContext();
   const [isAdmin, setIsAdmin] = useState(false);
-  const adminId = 'U439dc3807475b0b2091a3a712ab6fb90';
+
   useEffect(() => {
     console.log(isAdmin);
-    console.log(adminId);
     console.log(`context: ${userId}`);
-    if (userId === adminId) {setIsAdmin(true);}
-  }, [isAdmin, userId, adminId])
+    if (adminId.includes(userId)) {setIsAdmin(true);}
+  }, [isAdmin, userId])
 
   const tabsListClassName = `grid w-full ${isAdmin ? 'grid-cols-3' : 'grid-cols-2'}`;
   return (
